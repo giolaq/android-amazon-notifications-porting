@@ -46,13 +46,13 @@
         </receiver>
 
         <!-- TODO: Step 3.0 uncomment to start the service  -->
-        <service
-                android:name=".MyFirebaseMessagingService"
-                android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
+<!--        <service-->
+<!--                android:name=".MyFirebaseMessagingService"-->
+<!--                android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.MESSAGING_EVENT"/>-->
+<!--            </intent-filter>-->
+<!--        </service>-->
         <!-- [START fcm_default_icon] -->
         <!--
  Set custom default icon. This is used when no icon is set for incoming notification messages.
@@ -73,6 +73,21 @@
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
                 android:value="@string/breakfast_notification_channel_id" />
         <!-- [END fcm_default_channel] -->
+
+
+
+        <meta-data android:name="com.a3l.clsName"
+            android:value="com.example.mya3lapp.MyA3LMessagingService" />
+
+        <!--  Configuration for A3LMessaging start  -->
+        <receiver android:name=".MyA3LMessagingService"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.amazon.A3L.messaging.intent.REGISTRATION"/>
+                <action android:name="com.amazon.A3L.messaging.intent.MESSAGE"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

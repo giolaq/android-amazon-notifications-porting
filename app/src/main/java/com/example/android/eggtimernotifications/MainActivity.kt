@@ -17,15 +17,36 @@
 package com.example.android.eggtimernotifications
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.amazon.A3L.messaging.A3LMessaging
+import com.amazon.A3L.messaging.registration.InitCallbackResponse
+import com.amazon.A3L.messaging.registration.OnInitCallback
 import com.example.android.eggtimernotifications.ui.EggTimerFragment
 
+
 class MainActivity : AppCompatActivity() {
+
+    private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+
+        val onInitCallback: OnInitCallback = object : OnInitCallback() {
+            override fun onReady(initCallbackResponse: InitCallbackResponse) {
+                if (initCallbackResponse.isSuccessFul) {
+                    Log.d(TAG, "Device Id: " + initCallbackResponse.token)
+                } else {
+                    Log.d(
+                        TAG, "Registration failed with Error: " +
+                                initCallbackResponse.errorMessage
+                    )
+                }
+            }
+        }
+        A3LMessaging.init(applicationContext, onInitCallback)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, EggTimerFragment.newInstance())
